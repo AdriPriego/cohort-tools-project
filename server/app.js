@@ -18,9 +18,7 @@ const cors = require("cors");
 // ...
 app.use(
   cors(
-      "http://localhost:5173/docs",
-      "http://localhost:5173/api/cohorts",
-      "http://localhost:5173/api/students",
+      "http://localhost:5173"
       )
 );
 app.use(express.json());
