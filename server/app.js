@@ -16,13 +16,7 @@ const cors = require("cors");
 // MIDDLEWARE
 // Research Team - Set up CORS middleware here:
 // ...
-app.use(
-  cors(
-      "http://localhost:5173/docs",
-      "http://localhost:5173/api/cohorts",
-      "http://localhost:5173/api/students",
-      )
-);
+app.use(cors("http://localhost:5173"));
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.static("public"));
