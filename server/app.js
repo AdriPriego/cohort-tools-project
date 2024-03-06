@@ -94,8 +94,10 @@ app.get("/api/students", (req, res) => {
 });
 //Ruta todos los estudiantes para un cohort especifico
 app.get("/api/students/cohort/:cohortId", (req, res) => {
+  const cohortId = req.params.cohortId
   console.log(req.params.cohortId)
-  Student.find({cohortId})
+
+  Student.find({cohort: cohortId})
     .then((students) => {
       console.log("todos los estudiantes del cohort", students)
       res.json(students);
@@ -105,6 +107,65 @@ app.get("/api/students/cohort/:cohortId", (req, res) => {
       res.status(500).json({ error: "fallo al recibir los estudiantes" })
     })
 });
+//Ruta para un estudiante especifico por id
+app.get("/api/students/:studentId", (req, res) => {
+  const studentId = req.params.studentId
+  console.log(studentId)
+  Student.findById(studentId)
+    .then((student) => {
+      console.log("Estudiante", student)
+      res.json(student);
+    })
+    .catch((error) => {
+      console.log("error", error)
+      res.status(500).json({ error: "fallo al recibir los estudiantes" })
+    })
+});
+
+//Ruta para editar un estudiante especfico por id
+app.put("/api/students/:studentId", (req, res) => {
+  const studentId = req.params.studentId
+  console.log(studentId)
+  const {firstName, lastName, email, phone, linkedinUrl, languages, program, background, image, cohort, projects} = req.body
+  Student.findByIdAndUpdate(studentId, {
+    firstName, 
+    lastName,
+    email, 
+    phone, 
+    linkedinUrl, 
+    languages, 
+    program, 
+    background, 
+    image, 
+    cohort, 
+    projects
+  },{new: true} )
+    .then((student) => {
+      console.log("Estudiante", student)
+      res.json(student);
+    })
+    .catch((error) => {
+      console.log("error", error)
+      res.status(500).json({ error: "fallo al recibir los estudiantes" })
+    })
+});
+
+//Ruta para borrar un estudiante
+app.delete("/api/students/:studentId", (req, res) => {
+  const studentId = req.params.studentId
+  console.log(studentId)
+  Student.findByIdAndDelete(studentId)
+    .then((student) => {
+      console.log("Estudiante borrado", student)
+      res.json(student);
+    })
+    .catch((error) => {
+      console.log("error", error)
+      res.status(500).json({ error: "fallo al recibir los estudiantes" })
+    })
+});
+
+//cohorts rutes
 
 // START SERVER
 app.listen(PORT, () => {
