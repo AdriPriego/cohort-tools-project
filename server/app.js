@@ -27,8 +27,8 @@ mongoose
 // ...
 app.use(
   cors(
-      "http://localhost:5173"
-      )
+    "http://localhost:5173"
+  )
 );
 app.use(express.json());
 app.use(morgan("dev"));
@@ -45,25 +45,65 @@ app.get("/docs", (req, res) => {
 
 app.get("/api/cohorts", (req, res) => {
   Cohort.find()
-  .then((cohorts) => {
-    console.log("todos los cohorts", cohorts)
-    res.json(cohorts);
+    .then((cohorts) => {
+      console.log("todos los cohorts", cohorts)
+      res.json(cohorts);
+    })
+    .catch((error) => {
+      console.log("error", error)
+      res.status(500).json({ error: "fallo al recibir los cohorts" })
+    })
+});
+//students routes
+
+// Ruta crear estudiante
+app.post("/api/students", (req, res, next) => {
+  const {firstName, lastName, email, phone, linkedinUrl, languages, program, background, image, cohort, projects} = req.body
+
+  Student.create({
+    firstName, 
+    lastName,
+    email, 
+    phone, 
+    linkedinUrl, 
+    languages, 
+    program, 
+    background, 
+    image, 
+    cohort, 
+    projects
+  })
+  .then((response) => {
+    res.json({message: "estudante creado"})
   })
   .catch((error) => {
-    console.log("error", error)
-    res.status(500).json({error: "fallo al recibir los cohorts"})
+    console.log(error)
   })
-});
+})
+//Ruta todos los estudiantes
 app.get("/api/students", (req, res) => {
   Student.find()
-  .then((students) => {
-    console.log("todos los estudiantes", students)
-    res.json(students);
-  })
-  .catch((error) => {
-    console.log("error", error)
-    res.status(500).json({error: "fallo al recibir los estudiantes"})
-  })
+    .then((students) => {
+      console.log("todos los estudiantes", students)
+      res.json(students);
+    })
+    .catch((error) => {
+      console.log("error", error)
+      res.status(500).json({ error: "fallo al recibir los estudiantes" })
+    })
+});
+//Ruta todos los estudiantes para un cohort especifico
+app.get("/api/students/cohort/:cohortId", (req, res) => {
+  console.log(req.params.cohortId)
+  Student.find({cohortId})
+    .then((students) => {
+      console.log("todos los estudiantes del cohort", students)
+      res.json(students);
+    })
+    .catch((error) => {
+      console.log("error", error)
+      res.status(500).json({ error: "fallo al recibir los estudiantes" })
+    })
 });
 
 // START SERVER
