@@ -11,17 +11,6 @@ router.get("/docs", (req, res, next) => {
   res.sendFile(__dirname + "/views/docs.html");
 });
 
-router.get("/cohorts", (req, res, next) => {
-  Cohort.find()
-    .then((cohorts) => {
-      console.log("todos los cohorts", cohorts);
-      res.status(200).json(cohorts);
-    })
-    .catch((error) => {
-      console.log("error", error);
-      next(error);
-    });
-});
 //students routes
 
 // Ruta crear estudiante
@@ -53,8 +42,8 @@ router.post("/students", (req, res, next) => {
     cohort,
     projects,
   })
-    .then((response) => {
-      res.sendStatus(201)
+    .then(() => {
+      res.status(201).json()
     })
     .catch((error) => {
       console.log(error);
@@ -66,9 +55,9 @@ router.post("/students", (req, res, next) => {
 router.get("/students", (req, res, next) => {
   Student.find()
     .populate("cohort")
-    .then((students) => {
-      console.log("todos los estudiantes", students);
-      res.status(200).json(students);
+    .then((student) => {
+      console.log("todos los estudiantes", student);
+      res.status(200).json(student);
     })
     .catch((error) => {
       console.log("error", error);
@@ -83,9 +72,9 @@ router.get("/students/cohort/:cohortId", (req, res, next) => {
 
   Student.find({ cohort: cohortId })
     .populate("cohort")
-    .then((students) => {
-      console.log("todos los estudiantes del cohort", students);
-      res.status(200).json(students);
+    .then((student) => {
+      console.log("todos los estudiantes del cohort", student);
+      res.status(200).json(student);
     })
     .catch((error) => {
       console.log("error", error);
@@ -145,7 +134,7 @@ router.put("/students/:studentId", (req, res, next) => {
   )
     .then((student) => {
       console.log("Estudiante", student);
-      res.sendStatus(201)
+      res.status(202).json(student)
     })
     .catch((error) => {
       console.log("error", error);
@@ -160,7 +149,7 @@ router.delete("/students/:studentId", (req, res, next) => {
   Student.findByIdAndDelete(studentId)
     .then((student) => {
       console.log("Estudiante borrado", student);
-      res.sendStatus(202)
+      res.status(202).json({message: "Estudiante borrado"})
     })
     .catch((error) => {
       console.log("error", error);
@@ -197,8 +186,8 @@ router.post("/cohorts", (req, res, next) => {
     leadTeacher,
     totalHours,
   })
-    .then((response) => {
-      res.sendStatus(201).
+    .then(() => {
+      res.status(201).json()
     })
     .catch((error) => {
       console.log(error);
@@ -209,9 +198,9 @@ router.post("/cohorts", (req, res, next) => {
 //Ruta todos los cohorts
 router.get("/cohorts", (req, res, next) => {
   Cohort.find()
-    .then((cohorts) => {
-      console.log("todos los cohorts", cohorts);
-      res.status(200).json(cohorts);
+    .then((cohort) => {
+      console.log("todos los cohorts", cohort);
+      res.status(200).json(cohort);
     })
     .catch((error) => {
       console.log("error", error);
@@ -268,7 +257,7 @@ router.put("/cohorts/:cohortId", (req, res, next) => {
   )
     .then((cohort) => {
       console.log("Estudiante", cohort);
-      res.sendStatus(201)
+      res.status(202).json(cohort)
     })
     .catch((error) => {
       console.log("error", error);
@@ -276,14 +265,14 @@ router.put("/cohorts/:cohortId", (req, res, next) => {
     });
 });
 
-//Ruta para borrar un estudiante
+//Ruta para borrar un cohort
 router.delete("/cohorts/:cohortId", (req, res, next) => {
   const cohortId = req.params.cohortId;
   console.log(cohortId);
   Cohort.findByIdAndDelete(cohortId)
     .then((cohort) => {
-      console.log("Estudiante borrado", cohort);
-      res.sendStatus(202)
+      console.log("Cohort borrado", cohort);
+      res.status(202).json({message: "Cohort borrado"})
     })
     .catch((error) => {
       console.log("error", error);
