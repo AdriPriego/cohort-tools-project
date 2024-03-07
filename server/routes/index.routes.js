@@ -15,7 +15,7 @@ router.get("/cohorts", (req, res, next) => {
   Cohort.find()
     .then((cohorts) => {
       console.log("todos los cohorts", cohorts);
-      res.json(cohorts);
+      res.status(200).json(cohorts);
     })
     .catch((error) => {
       console.log("error", error);
@@ -54,7 +54,7 @@ router.post("/students", (req, res, next) => {
     projects,
   })
     .then((response) => {
-      res.json({ message: "estudiante creado" });
+      res.sendStatus(201)
     })
     .catch((error) => {
       console.log(error);
@@ -68,7 +68,7 @@ router.get("/students", (req, res, next) => {
     .populate("cohort")
     .then((students) => {
       console.log("todos los estudiantes", students);
-      res.json(students);
+      res.status(200).json(students);
     })
     .catch((error) => {
       console.log("error", error);
@@ -85,7 +85,7 @@ router.get("/students/cohort/:cohortId", (req, res, next) => {
     .populate("cohort")
     .then((students) => {
       console.log("todos los estudiantes del cohort", students);
-      res.json(students);
+      res.status(200).json(students);
     })
     .catch((error) => {
       console.log("error", error);
@@ -101,7 +101,7 @@ router.get("/students/:studentId", (req, res, next) => {
     .populate("cohort")
     .then((student) => {
       console.log("Estudiante", student);
-      res.json(student);
+      res.status(200).json(student);
     })
     .catch((error) => {
       console.log("error", error);
@@ -145,7 +145,7 @@ router.put("/students/:studentId", (req, res, next) => {
   )
     .then((student) => {
       console.log("Estudiante", student);
-      res.json(student);
+      res.sendStatus(201)
     })
     .catch((error) => {
       console.log("error", error);
@@ -160,7 +160,7 @@ router.delete("/students/:studentId", (req, res, next) => {
   Student.findByIdAndDelete(studentId)
     .then((student) => {
       console.log("Estudiante borrado", student);
-      res.json(student);
+      res.sendStatus(202)
     })
     .catch((error) => {
       console.log("error", error);
@@ -198,7 +198,7 @@ router.post("/cohorts", (req, res, next) => {
     totalHours,
   })
     .then((response) => {
-      res.json({ message: "cohort creado" });
+      res.sendStatus(201).
     })
     .catch((error) => {
       console.log(error);
@@ -211,7 +211,7 @@ router.get("/cohorts", (req, res, next) => {
   Cohort.find()
     .then((cohorts) => {
       console.log("todos los cohorts", cohorts);
-      res.json(cohorts);
+      res.status(200).json(cohorts);
     })
     .catch((error) => {
       console.log("error", error);
@@ -226,7 +226,7 @@ router.get("/cohorts/:cohortId", (req, res, next) => {
   Cohort.findById(cohortId)
     .then((cohort) => {
       console.log("Estudiante", cohort);
-      res.json(cohort);
+      res.status(200).json(cohort);
     })
     .catch((error) => {
       console.log("error", error);
@@ -268,7 +268,7 @@ router.put("/cohorts/:cohortId", (req, res, next) => {
   )
     .then((cohort) => {
       console.log("Estudiante", cohort);
-      res.json(cohort);
+      res.sendStatus(201)
     })
     .catch((error) => {
       console.log("error", error);
@@ -283,7 +283,7 @@ router.delete("/cohorts/:cohortId", (req, res, next) => {
   Cohort.findByIdAndDelete(cohortId)
     .then((cohort) => {
       console.log("Estudiante borrado", cohort);
-      res.json(cohort);
+      res.sendStatus(202)
     })
     .catch((error) => {
       console.log("error", error);
