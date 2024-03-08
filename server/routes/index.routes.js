@@ -11,10 +11,14 @@ router.get("/docs", (req, res, next) => {
   res.sendFile(__dirname + "/views/docs.html");
 });
 
+const authRouter = require("./auth.routes")
+router.use("/auth", authRouter)
+
 //students routes
 
 // Ruta crear estudiante
 router.post("/students", (req, res, next) => {
+  console.log(req.body)
   const {
     firstName,
     lastName,

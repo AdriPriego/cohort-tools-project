@@ -1,3 +1,4 @@
+require("dotenv").config()
 const express = require("express");
 const app = express();
 const PORT = 5005;
@@ -17,7 +18,7 @@ require("./db")
 // MIDDLEWARE
 // Research Team - Set up CORS middleware here:
 // ...
-require("./config")
+require("./config")(app)
 
 // ROUTES - https://expressjs.com/en/starter/basic-routing.html
 // Devs Team - Start working on the routes here:
@@ -25,7 +26,7 @@ require("./config")
 const indexRoutes = require("./routes/index.routes")
 app.use("/api", indexRoutes)
 
-require("./error-handling")
+require("./error-handling")(app)
 
 // START SERVER
 app.listen(PORT, () => {
