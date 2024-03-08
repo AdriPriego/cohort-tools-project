@@ -11,14 +11,16 @@ router.get("/docs", (req, res, next) => {
   res.sendFile(__dirname + "/views/docs.html");
 });
 
-const authRouter = require("./auth.routes")
-router.use("/auth", authRouter)
+const authRouter = require("./auth.routes");
+router.use("/auth", authRouter);
 
+const userRouter = require("./user.routes");
+router.use("/user", userRouter);
 //students routes
 
 // Ruta crear estudiante
 router.post("/students", (req, res, next) => {
-  console.log(req.body)
+  console.log(req.body);
   const {
     firstName,
     lastName,
@@ -47,7 +49,7 @@ router.post("/students", (req, res, next) => {
     projects,
   })
     .then(() => {
-      res.status(201).json()
+      res.status(201).json();
     })
     .catch((error) => {
       console.log(error);
@@ -138,7 +140,7 @@ router.put("/students/:studentId", (req, res, next) => {
   )
     .then((student) => {
       console.log("Estudiante", student);
-      res.status(202).json(student)
+      res.status(202).json(student);
     })
     .catch((error) => {
       console.log("error", error);
@@ -153,7 +155,7 @@ router.delete("/students/:studentId", (req, res, next) => {
   Student.findByIdAndDelete(studentId)
     .then((student) => {
       console.log("Estudiante borrado", student);
-      res.status(202).json({message: "Estudiante borrado"})
+      res.status(202).json({ message: "Estudiante borrado" });
     })
     .catch((error) => {
       console.log("error", error);
@@ -191,7 +193,7 @@ router.post("/cohorts", (req, res, next) => {
     totalHours,
   })
     .then(() => {
-      res.status(201).json()
+      res.status(201).json();
     })
     .catch((error) => {
       console.log(error);
@@ -261,7 +263,7 @@ router.put("/cohorts/:cohortId", (req, res, next) => {
   )
     .then((cohort) => {
       console.log("Estudiante", cohort);
-      res.status(202).json(cohort)
+      res.status(202).json(cohort);
     })
     .catch((error) => {
       console.log("error", error);
@@ -276,7 +278,7 @@ router.delete("/cohorts/:cohortId", (req, res, next) => {
   Cohort.findByIdAndDelete(cohortId)
     .then((cohort) => {
       console.log("Cohort borrado", cohort);
-      res.status(202).json({message: "Cohort borrado"})
+      res.status(202).json({ message: "Cohort borrado" });
     })
     .catch((error) => {
       console.log("error", error);
