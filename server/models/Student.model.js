@@ -25,7 +25,7 @@ const studentSchema = new Schema({
         default: ""
     },
     languages: {
-        type: String,
+        type: [String],
         enum: [
             "English", "Spanish", "French", "German", "Portuguese", "Dutch", "Other"
         ]
@@ -48,7 +48,7 @@ const studentSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: "Cohort"
     },
-    projects: []
+    projects: [String]
 })
 
 

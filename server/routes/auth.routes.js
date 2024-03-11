@@ -92,7 +92,7 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-//GET /auth/verify
+//GET /api/auth/verify
 router.get("/verify", isTokenValid, (req, res, next) => {
   res.json(req.payload);
 });

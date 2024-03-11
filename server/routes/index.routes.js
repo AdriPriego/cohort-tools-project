@@ -15,7 +15,7 @@ const authRouter = require("./auth.routes");
 router.use("/auth", authRouter);
 
 const userRouter = require("./user.routes");
-router.use("/user", userRouter);
+router.use("/users", userRouter);
 //students routes
 
 // Ruta crear estudiante
